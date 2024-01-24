@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <a href="#" onclick="history.back()">Back</a>
+    </div>
+
+    <table th:object="${doc}">
+        <tr>
+            <td>ID:</td>
+            <td th:text="*{id}"></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td>
+                <p th:text="*{description}"></p>
+                <img th:src="@{*{image}}" alt="" style="width: 300px;">
+            </td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td>
+                <span th:text="*{street}"></span>
+                <br>
+                <span th:text="*{suburb}"></span>
+                <br>
+                <span th:text="*{country}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td th:text="*{price}"></td>
+        </tr>
+        <tr>
+            <td>
+                Amenities:
+            </td>
+            <td th:text="*{amenities}"></td>
+        </tr>
+    </table>
+
+    <div>
+        <h2>Bookings</h2>
+        <form data-th-action="@{/booking/{id}(id=${doc.id})}" method="POST" data-th-object="${reservation}">
+            <div data-th-if="${errorMessage != null}">
+                <p data-th-text="${errorMessage}" style="color: red;"></p>
+            </div>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" data-th-field="*{name}">
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email" data-th-field="*{email}">
+            </div>
+            <div>
+                <label for="arrival">Arrival:</label>
+                <input type="date" name="arrival" id="arrival" data-th-field="*{arrival}">
+            </div>
+            <div>
+                <label for="daysOfStay">Stay:</label>
+                <input type="text" name="daysOfStay" id="daysOfStay" data-th-field="*{daysOfStay}"> days
+            </div>
+            <div>
+                <button type="submit">Book</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

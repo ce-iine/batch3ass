@@ -1,0 +1,1 @@
+mongoimport -hlocalhost --port=27017 -dbatch3ass -clistings data/listings.json

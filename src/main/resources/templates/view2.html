@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Listings for <span th:text="${country}"></span></h2>
+    <a href="/">Back</a>
+    <br />
+    <br />
+    <div th:if="${#lists.isEmpty(queryResults)}">
+        <p>Your query has no search results. Try again?</p>
+    </div>
+
+    </div>
+    <table style="border: 1px solid black;" th:if="${not #lists.isEmpty(queryResults)}">
+        <tr>
+            <th style="border: 1px solid black;">Name</th>
+            <th style="border: 1px solid black;">Price</th>
+            <th style="border: 1px solid black;">Image</th>
+            <th></th>
+        </tr>
+        <tr th:each="result : ${queryResults}">
+            <td th:text="*{result.name}" style="border: 1px solid black;"></td>
+            <td th:text="*{result.price}" style="border: 1px solid black;"></td>
+            <td>
+                <img th:src="@{${result.image}}" alt="" style="width: 300px; border: 1px solid black;">
+            </td>
+            <td>
+                <form th:action="@{/details/{id}(id=*{result.id})}" method="get">
+                    <button type="submit">Details</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
